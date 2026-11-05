@@ -1,0 +1,20 @@
+{
+  "base_url": "https://api.checko.ru/v2/",
+  "database_path": "var/checko.sqlite",
+  "requests": {
+    "legal-cases": "legal-cases?ogrn={ogrn}&inn={inn}&role={role}&actual={actual}&active={active}&date_from={date_from}&date_to={date_to}&claim_amount_from={claim_amount_from}&claim_amount_to={claim_amount_to}&limit={limit}&page={page}&sort={sort}&key={key}",
+    "bank": "bank?bic={bic}&key={key}",
+    "contracts": "contracts?ogrn={ogrn}&inn={inn}&law={law}&role={role}&limit={limit}&page={page}&sort={sort}&key={key}",
+    "entrepreneur": "entrepreneur?ogrn={ogrn}&inn={inn}&okpo={okpo}&source={source}&key={key}",
+    "company": "company?ogrn={ogrn}&inn={inn}&okpo={okpo}&source={source}&key={key}",
+    "timeline": "timeline?ogrn={ogrn}&inn={inn}&key={key}",
+    "reliability": "reliability?ogrn={ogrn}&inn={inn}&key={key}",
+    "person": "person?inn={inn}&key={key}",
+    "search": "search?by={by}&obj={obj}&query={query}&region={region}&okved={okved}&opf={opf}&active={active}&codes={codes}&limit={limit}&page={page}&key={key}",
+    "inspections": "inspections?ogrn={ogrn}&inn={inn}&limit={limit}&page={page}&sort={sort}&key={key}",
+    "bankruptcy-messages": "bankruptcy-messages?ogrn={ogrn}&inn={inn}&date_from={date_from}&date_to={date_to}&limit={limit}&page={page}&sort={sort}&key={key}",
+    "fedresurs": "fedresurs?ogrn={ogrn}&inn={inn}&type={type}&role={role}&date_from={date_from}&date_to={date_to}&limit={limit}&page={page}&sort={sort}&key={key}",
+    "finances": "finances?ogrn={ogrn}&inn={inn}&extended={extended}&key={key}",
+    "enforcements": "enforcements?ogrn={ogrn}&inn={inn}&limit={limit}&page={page}&sort={sort}&key={key}"
+  }
+}

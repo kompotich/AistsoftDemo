@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ProxyCheckoApi",
+    "version": "1.0.0",
+    "description": "Прокси API для получения сведений из Checko."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Текущий сервер приложения"
+    }
+  ],
+  "paths": {
+    "/checko/legal-cases": {
+      "get": {
+        "operationId": "legalCases",
+        "summary": "Получить арбитражные дела организации или индивидуального предпринимателя",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"$ref": "#/components/parameters/LegalCasesRole"},
+          {"$ref": "#/components/parameters/Actual"},
+          {"$ref": "#/components/parameters/Active"},
+          {"$ref": "#/components/parameters/DateFrom"},
+          {"$ref": "#/components/parameters/DateTo"},
+          {"$ref": "#/components/parameters/ClaimAmountFrom"},
+          {"$ref": "#/components/parameters/ClaimAmountTo"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/DateSort"}
+        ],
+        "responses": {
+          "200": {"description": "Список арбитражных дел", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/LegalCasesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/bank": {
+      "get": {
+        "operationId": "bank",
+        "summary": "Получить реквизиты банка или кредитной организации по БИК",
+        "parameters": [
+          {"name": "bic", "in": "query", "required": true, "description": "БИК банка.", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Реквизиты банка", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BankDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/contracts": {
+      "get": {
+        "operationId": "contracts",
+        "summary": "Получить сведения о контрактах по 44-ФЗ, 94-ФЗ или 223-ФЗ",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"$ref": "#/components/parameters/ContractsLaw"},
+          {"$ref": "#/components/parameters/ContractsRole"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/ContractsSort"}
+        ],
+        "responses": {
+          "200": {"description": "Список контрактов", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ContractsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/entrepreneur": {
+      "get": {
+        "operationId": "entrepreneur",
+        "summary": "Получить сведения об индивидуальном предпринимателе из ЕГРИП",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"name": "okpo", "in": "query", "description": "Код ОКПО предпринимателя.", "schema": {"type": "string"}},
+          {"name": "source", "in": "query", "description": "При true добавляются исходные данные ЕГРИП.", "schema": {"type": "boolean"}}
+        ],
+        "responses": {
+          "200": {"description": "Сведения о предпринимателе", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EntrepreneurDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/company": {
+      "get": {
+        "operationId": "company",
+        "summary": "Получить сведения об организации из ЕГРЮЛ",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"name": "okpo", "in": "query", "description": "Код ОКПО организации.", "schema": {"type": "string"}},
+          {"name": "source", "in": "query", "description": "При true добавляются исходные данные ЕГРЮЛ.", "schema": {"type": "boolean"}}
+        ],
+        "responses": {
+          "200": {"description": "Сведения об организации", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompanyDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/timeline": {
+      "get": {
+        "operationId": "timeline",
+        "summary": "Получить историю событий и изменений организации или предпринимателя",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"}
+        ],
+        "responses": {
+          "200": {"description": "История событий и изменений", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TimelineDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/reliability": {
+      "get": {
+        "operationId": "reliability",
+        "summary": "Получить оценку надежности организации или предпринимателя",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"}
+        ],
+        "responses": {
+          "200": {"description": "Оценка надежности", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ReliabilityDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/person": {
+      "get": {
+        "operationId": "person",
+        "summary": "Получить сведения о физическом лице и его связях по ИНН",
+        "parameters": [
+          {"name": "inn", "in": "query", "required": true, "description": "ИНН физического лица.", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Сведения о физическом лице", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PersonDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/search": {
+      "get": {
+        "operationId": "search",
+        "summary": "Найти организации или индивидуальных предпринимателей по заданным условиям",
+        "parameters": [
+          {"$ref": "#/components/parameters/SearchBy"},
+          {"$ref": "#/components/parameters/SearchObject"},
+          {"name": "query", "in": "query", "required": true, "description": "Текст запроса; для наименования и ФИО минимум 4 символа. Даты — YYYY-MM-DD.", "schema": {"type": "string"}},
+          {"name": "region", "in": "query", "description": "Двухзначный код региона.", "schema": {"type": "string", "pattern": "^\\d{2}$"}},
+          {"name": "okved", "in": "query", "description": "Код основного вида деятельности по ОКВЭД-2.", "schema": {"type": "string"}},
+          {"name": "opf", "in": "query", "description": "Двух- или пятизначный код ОКОПФ.", "schema": {"type": "string", "pattern": "^(\\d{2}|\\d{5})$"}},
+          {"name": "active", "in": "query", "description": "При true в результатах остаются только действующие организации и ИП.", "schema": {"type": "boolean"}},
+          {"$ref": "#/components/parameters/SearchCodes"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"}
+        ],
+        "responses": {
+          "200": {"description": "Результаты поиска", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SearchDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/inspections": {
+      "get": {
+        "operationId": "inspections",
+        "summary": "Получить сведения о проверках организации или предпринимателя",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/DateSort"}
+        ],
+        "responses": {
+          "200": {"description": "Список проверок", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/InspectionsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/bankruptcy-messages": {
+      "get": {
+        "operationId": "bankruptcyMessages",
+        "summary": "Получить сообщения из реестра банкротств по организации или предпринимателю",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"$ref": "#/components/parameters/DateFrom"},
+          {"$ref": "#/components/parameters/DateTo"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/DateSort"}
+        ],
+        "responses": {
+          "200": {"description": "Сообщения о банкротстве", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BankruptcyMessagesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/fedresurs": {
+      "get": {
+        "operationId": "fedresurs",
+        "summary": "Получить сообщения ЕФРСФДЮЛ о компании или предпринимателе",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"name": "type", "in": "query", "description": "Тип сообщения из справочника Checko.", "schema": {"type": "string"}},
+          {"$ref": "#/components/parameters/FedresursRole"},
+          {"$ref": "#/components/parameters/DateFrom"},
+          {"$ref": "#/components/parameters/DateTo"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/DateSort"}
+        ],
+        "responses": {
+          "200": {"description": "Сообщения Федресурса", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FedresursDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/finances": {
+      "get": {
+        "operationId": "finances",
+        "summary": "Получить бухгалтерскую финансовую отчетность организации",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"name": "extended", "in": "query", "description": "При true возвращается расширенная версия отчетности.", "schema": {"type": "boolean"}}
+        ],
+        "responses": {
+          "200": {"description": "Финансовая отчетность", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinancesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    },
+    "/checko/enforcements": {
+      "get": {
+        "operationId": "enforcements",
+        "summary": "Получить исполнительные производства ФССП по организации или предпринимателю",
+        "parameters": [
+          {"$ref": "#/components/parameters/Ogrn"},
+          {"$ref": "#/components/parameters/Inn"},
+          {"$ref": "#/components/parameters/Limit"},
+          {"$ref": "#/components/parameters/Page"},
+          {"$ref": "#/components/parameters/DateSort"}
+        ],
+        "responses": {
+          "200": {"description": "Список исполнительных производств", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EnforcementsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "502": {"$ref": "#/components/responses/UpstreamError"}
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Ogrn": {"name": "ogrn", "in": "query", "description": "ОГРН организации или ОГРНИП предпринимателя.", "schema": {"type": "string"}},
+      "Inn": {"name": "inn", "in": "query", "description": "ИНН организации или предпринимателя; укажите ИНН, если ОГРН/ОГРНИП не задан.", "schema": {"type": "string"}},
+      "Actual": {"name": "actual", "in": "query", "description": "При true исключаются дела с неактуальными статусами.", "schema": {"type": "boolean"}},
+      "Active": {"name": "active", "in": "query", "description": "При true возвращаются только активные записи.", "schema": {"type": "boolean"}},
+      "DateFrom": {"name": "date_from", "in": "query", "description": "Начало периода в формате YYYY-MM-DD.", "schema": {"type": "string", "format": "date"}},
+      "DateTo": {"name": "date_to", "in": "query", "description": "Конец периода в формате YYYY-MM-DD.", "schema": {"type": "string", "format": "date"}},
+      "ClaimAmountFrom": {"name": "claim_amount_from", "in": "query", "description": "Минимальная сумма исковых требований.", "schema": {"type": "number", "format": "float"}},
+      "ClaimAmountTo": {"name": "claim_amount_to", "in": "query", "description": "Максимальная сумма исковых требований.", "schema": {"type": "number", "format": "float"}},
+      "Limit": {"name": "limit", "in": "query", "description": "Количество результатов на страницу: по умолчанию 100, максимум 100.", "schema": {"type": "integer", "minimum": 1, "maximum": 100, "default": 100}},
+      "Page": {"name": "page", "in": "query", "description": "Номер страницы результатов.", "schema": {"type": "integer", "minimum": 1}},
+      "DateSort": {"name": "sort", "in": "query", "description": "Сортировка по дате: по возрастанию или убыванию.", "schema": {"type": "string", "enum": ["date", "-date"]}},
+      "LegalCasesRole": {"name": "role", "in": "query", "description": "Роль в процессе.", "schema": {"type": "string", "enum": ["plaintiff", "defendant"]}},
+      "ContractsLaw": {"name": "law", "in": "query", "description": "Федеральный закон о закупках.", "schema": {"type": "string", "enum": ["44", "94", "223"]}},
+      "ContractsRole": {"name": "role", "in": "query", "description": "Роль в контракте.", "schema": {"type": "string", "enum": ["customer", "supplier"]}},
+      "ContractsSort": {"name": "sort", "in": "query", "description": "Сортировка по дате контракта или цене.", "schema": {"type": "string", "enum": ["date", "-date", "price", "-price"]}},
+      "SearchBy": {"name": "by", "in": "query", "required": true, "description": "Тип поиска.", "schema": {"type": "string", "enum": ["name", "founder-name", "leader-name", "okved", "reg-date", "upd-date", "phone", "email"]}},
+      "SearchObject": {"name": "obj", "in": "query", "required": true, "description": "Область поиска.", "schema": {"type": "string", "enum": ["org", "ent"]}},
+      "SearchCodes": {"name": "codes", "in": "query", "description": "При поиске по ОКВЭД значение all включает дополнительные коды.", "schema": {"type": "string", "enum": ["all"]}},
+      "FedresursRole": {"name": "role", "in": "query", "description": "Роль субъекта в сообщении.", "schema": {"type": "string", "enum": ["all", "publisher"]}}
+    },
+    "responses": {
+      "BadRequest": {"description": "Некорректные параметры запроса"},
+      "NotFound": {"description": "Ресурс не найден"},
+      "UpstreamError": {"description": "Ошибка при обращении к Checko API"}
+    },
+    "schemas": {
+      "LegalCasesDto": {"type": "object", "description": "Ответ с арбитражными делами.", "additionalProperties": true},
+      "BankDto": {"type": "object", "description": "Ответ с реквизитами банка.", "additionalProperties": true},
+      "ContractsDto": {"type": "object", "description": "Ответ со сведениями о контрактах.", "additionalProperties": true},
+      "EntrepreneurDto": {"type": "object", "description": "Ответ со сведениями об индивидуальном предпринимателе.", "additionalProperties": true},
+      "CompanyDto": {"type": "object", "description": "Ответ со сведениями об организации.", "additionalProperties": true},
+      "TimelineDto": {"type": "object", "description": "Ответ с историей событий.", "additionalProperties": true},
+      "ReliabilityDto": {"type": "object", "description": "Ответ с оценкой надежности.", "additionalProperties": true},
+      "PersonDto": {"type": "object", "description": "Ответ со сведениями о физическом лице.", "additionalProperties": true},
+      "SearchDto": {"type": "object", "description": "Ответ с результатами поиска.", "additionalProperties": true},
+      "InspectionsDto": {"type": "object", "description": "Ответ со сведениями о проверках.", "additionalProperties": true},
+      "BankruptcyMessagesDto": {"type": "object", "description": "Ответ с сообщениями о банкротстве.", "additionalProperties": true},
+      "FedresursDto": {"type": "object", "description": "Ответ с сообщениями Федресурса.", "additionalProperties": true},
+      "FinancesDto": {"type": "object", "description": "Ответ с финансовой отчетностью.", "additionalProperties": true},
+      "EnforcementsDto": {"type": "object", "description": "Ответ с исполнительными производствами.", "additionalProperties": true}
+    }
+  }
+}

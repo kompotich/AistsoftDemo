@@ -1,0 +1,510 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AppApi",
+    "version": "1.0.0",
+    "description": "API для сохранения и получения DTO приложения."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Текущий сервер приложения"
+    }
+  ],
+  "paths": {
+    "/app/legal-cases": {
+      "post": {
+        "operationId": "saveLegalCases",
+        "summary": "Сохранить арбитражные дела",
+        "description": "Сохраняет LegalCasesDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/legal-cases/{id}": {
+      "get": {
+        "operationId": "getLegalCases",
+        "summary": "Получить сохранённые арбитражные дела",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/LegalCasesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/bank": {
+      "post": {
+        "operationId": "saveBank",
+        "summary": "Сохранить сведения о банке",
+        "description": "Сохраняет BankDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/bank/{id}": {
+      "get": {
+        "operationId": "getBank",
+        "summary": "Получить сохранённые сведения о банке",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BankDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/contracts": {
+      "post": {
+        "operationId": "saveContracts",
+        "summary": "Сохранить сведения о контрактах",
+        "description": "Сохраняет ContractsDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/contracts/{id}": {
+      "get": {
+        "operationId": "getContracts",
+        "summary": "Получить сохранённые сведения о контрактах",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ContractsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/entrepreneur": {
+      "post": {
+        "operationId": "saveEntrepreneur",
+        "summary": "Сохранить сведения о предпринимателе",
+        "description": "Сохраняет EntrepreneurDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/entrepreneur/{id}": {
+      "get": {
+        "operationId": "getEntrepreneur",
+        "summary": "Получить сохранённые сведения о предпринимателе",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EntrepreneurDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/company": {
+      "post": {
+        "operationId": "saveCompany",
+        "summary": "Сохранить сведения о компании",
+        "description": "Сохраняет CompanyDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/company/{id}": {
+      "get": {
+        "operationId": "getCompany",
+        "summary": "Получить сохранённые сведения о компании",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные компании", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompanyDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/timeline": {
+      "post": {
+        "operationId": "saveTimeline",
+        "summary": "Сохранить историю изменений",
+        "description": "Сохраняет TimelineDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/timeline/{id}": {
+      "get": {
+        "operationId": "getTimeline",
+        "summary": "Получить сохранённую историю изменений",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/TimelineDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/reliability": {
+      "post": {
+        "operationId": "saveReliability",
+        "summary": "Сохранить оценку надёжности",
+        "description": "Сохраняет ReliabilityDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/reliability/{id}": {
+      "get": {
+        "operationId": "getReliability",
+        "summary": "Получить сохранённую оценку надёжности",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ReliabilityDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/person": {
+      "post": {
+        "operationId": "savePerson",
+        "summary": "Сохранить сведения о физическом лице",
+        "description": "Сохраняет PersonDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/person/{id}": {
+      "get": {
+        "operationId": "getPerson",
+        "summary": "Получить сохранённые сведения о физическом лице",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PersonDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/search": {
+      "post": {
+        "operationId": "saveSearch",
+        "summary": "Сохранить результаты поиска",
+        "description": "Сохраняет SearchDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/search/{id}": {
+      "get": {
+        "operationId": "getSearch",
+        "summary": "Получить сохранённые результаты поиска",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SearchDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/inspections": {
+      "post": {
+        "operationId": "saveInspections",
+        "summary": "Сохранить сведения о проверках",
+        "description": "Сохраняет InspectionsDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/inspections/{id}": {
+      "get": {
+        "operationId": "getInspections",
+        "summary": "Получить сохранённые сведения о проверках",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/InspectionsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/bankruptcy-messages": {
+      "post": {
+        "operationId": "saveBankruptcyMessages",
+        "summary": "Сохранить сообщения о банкротстве",
+        "description": "Сохраняет BankruptcyMessagesDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/bankruptcy-messages/{id}": {
+      "get": {
+        "operationId": "getBankruptcyMessages",
+        "summary": "Получить сохранённые сообщения о банкротстве",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/BankruptcyMessagesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/fedresurs": {
+      "post": {
+        "operationId": "saveFedresurs",
+        "summary": "Сохранить сообщения Федресурса",
+        "description": "Сохраняет FedresursDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/fedresurs/{id}": {
+      "get": {
+        "operationId": "getFedresurs",
+        "summary": "Получить сохранённые сообщения Федресурса",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FedresursDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/finances": {
+      "post": {
+        "operationId": "saveFinances",
+        "summary": "Сохранить финансовую отчётность",
+        "description": "Сохраняет FinancesDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/finances/{id}": {
+      "get": {
+        "operationId": "getFinances",
+        "summary": "Получить сохранённую финансовую отчётность",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FinancesDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/enforcements": {
+      "post": {
+        "operationId": "saveEnforcements",
+        "summary": "Сохранить исполнительные производства",
+        "description": "Сохраняет EnforcementsDto и параметры запроса.",
+        "requestBody": {"$ref": "#/components/requestBodies/SaveDto"},
+        "responses": {
+          "201": {"$ref": "#/components/responses/Created"},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    },
+    "/app/enforcements/{id}": {
+      "get": {
+        "operationId": "getEnforcements",
+        "summary": "Получить сохранённые исполнительные производства",
+        "parameters": [{"$ref": "#/components/parameters/Id"}],
+        "responses": {
+          "200": {"description": "Сохранённые данные", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/EnforcementsDto"}}}},
+          "400": {"$ref": "#/components/responses/BadRequest"},
+          "404": {"$ref": "#/components/responses/NotFound"},
+          "405": {"$ref": "#/components/responses/MethodNotAllowed"},
+          "500": {"$ref": "#/components/responses/ServerError"}
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Положительный идентификатор сохранённой записи.",
+        "schema": {"type": "integer", "minimum": 1}
+      }
+    },
+    "requestBodies": {
+      "SaveDto": {
+        "required": true,
+        "description": "DTO для сохранения и необязательные параметры исходного запроса.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["dto"],
+              "properties": {
+                "dto": {
+                  "type": "object",
+                  "description": "DTO соответствующего ресурса."
+                },
+                "requestParameters": {
+                  "type": "object",
+                  "description": "Параметры запроса, по которым получен ответ.",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "example": {
+              "dto": {
+                "data": {}
+              },
+              "requestParameters": {
+                "inn": "7707083893"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "Created": {
+        "description": "Запись сохранена.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {"type": "integer", "minimum": 1}
+              }
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Некорректный идентификатор или тело запроса."
+      },
+      "NotFound": {
+        "description": "Неизвестный ресурс или сохранённая запись не найдена."
+      },
+      "MethodNotAllowed": {
+        "description": "Поддерживаются только методы GET и POST."
+      },
+      "ServerError": {
+        "description": "Ошибка при работе с хранилищем."
+      }
+    },
+    "schemas": {
+      "LegalCasesDto": {"type": "object", "description": "DTO арбитражных дел.", "additionalProperties": true},
+      "BankDto": {"type": "object", "description": "DTO сведений о банке.", "additionalProperties": true},
+      "ContractsDto": {"type": "object", "description": "DTO сведений о контрактах.", "additionalProperties": true},
+      "EntrepreneurDto": {"type": "object", "description": "DTO сведений об индивидуальном предпринимателе.", "additionalProperties": true},
+      "CompanyDto": {"type": "object", "description": "DTO сведений о компании.", "additionalProperties": true},
+      "TimelineDto": {"type": "object", "description": "DTO истории изменений.", "additionalProperties": true},
+      "ReliabilityDto": {"type": "object", "description": "DTO оценки надёжности.", "additionalProperties": true},
+      "PersonDto": {"type": "object", "description": "DTO сведений о физическом лице.", "additionalProperties": true},
+      "SearchDto": {"type": "object", "description": "DTO результатов поиска.", "additionalProperties": true},
+      "InspectionsDto": {"type": "object", "description": "DTO сведений о проверках.", "additionalProperties": true},
+      "BankruptcyMessagesDto": {"type": "object", "description": "DTO сообщений о банкротстве.", "additionalProperties": true},
+      "FedresursDto": {"type": "object", "description": "DTO сообщений Федресурса.", "additionalProperties": true},
+      "FinancesDto": {"type": "object", "description": "DTO финансовой отчётности.", "additionalProperties": true},
+      "EnforcementsDto": {"type": "object", "description": "DTO исполнительных производств.", "additionalProperties": true}
+    }
+  }
+}
