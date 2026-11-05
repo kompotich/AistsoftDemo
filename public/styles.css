@@ -1,0 +1,195 @@
+:root {
+            color-scheme: light;
+            font-family: system-ui, "Arial", sans-serif;
+            --page-background: #ffffee;
+            --surface: #ffffff;
+            --text: #2a3c20;
+            --muted-text: #596579;
+            --border: #75856c;
+            --primary: #2f6725;
+            --primary-hover: #28551f;
+            --error: #b42318;
+            color: var(--text);
+            background: var(--page-background);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 32px 18px 56px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            font-size: 1.2rem;
+        }
+
+        p {
+            color: var(--muted-text);
+        }
+
+        .card {
+            margin-top: 20px;
+            padding: 22px;
+            border: 1px solid #d5ddcf;
+            border-radius: 12px;
+            background: var(--surface);
+            box-shadow: 0 3px 12px rgb(22 37 61 / 5%);
+        }
+
+        form,
+        .fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: end;
+        }
+
+        label {
+            display: grid;
+            flex: 1 1 220px;
+            gap: 6px;
+            font-size: .9rem;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        button {
+            min-height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px 10px;
+            background: var(--surface);
+        }
+
+        button {
+            padding: 8px 16px;
+            border-color: var(--primary);
+            color: #fff;
+            background: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: .6;
+        }
+
+        .secondary-button {
+            border-color: var(--border);
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .secondary-button:hover {
+            background: #f1f4ec;
+        }
+
+        input:focus-visible,
+        select:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .hint {
+            margin: 12px 0 0;
+            font-size: .88rem;
+        }
+
+        .message {
+            min-height: 1.4em;
+            margin: 14px 0 0;
+            font-size: .92rem;
+        }
+
+        .message.error {
+            color: var(--error);
+        }
+
+        .results {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .result {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            border: 1px solid #d5ddcf;
+            border-radius: 8px;
+        }
+
+        .result p {
+            margin: 4px 0 0;
+            font-size: .9rem;
+        }
+
+        .result button {
+            flex: 0 0 auto;
+        }
+
+        .detail-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        pre {
+            overflow: auto;
+            max-height: 560px;
+            margin: 16px 0 0;
+            padding: 16px;
+            border-radius: 8px;
+            color: #ffe;
+            background: #223517;
+            font-size: .84rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 22px 12px 40px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            form > button {
+                width: 100%;
+            }
+        }

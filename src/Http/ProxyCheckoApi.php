@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AistsoftDemo\Http;
 
 use AistsoftDemo\Client\CheckoClient;
+use AistsoftDemo\Client\CheckoResponseMapper;
 use AistsoftDemo\Dto\BankruptcyMessagesDto;
 use AistsoftDemo\Dto\BankDto;
 use AistsoftDemo\Dto\CompanyDto;
@@ -32,9 +33,7 @@ use InvalidArgumentException;
 use JsonException;
 use ReflectionMethod;
 use ReflectionNamedType;
-use ReflectionProperty;
 use RuntimeException;
-use stdClass;
 
 class ProxyCheckoApi
 {
@@ -56,8 +55,11 @@ class ProxyCheckoApi
         'bank' => ['bank', BankDto::class],
     ];
 
+    private CheckoResponseMapper $responseMapper;
+
     public function __construct(private CheckoClient $checkoClient)
     {
+        $this->responseMapper = new CheckoResponseMapper();
     }
 
     /**
@@ -442,7 +444,7 @@ class ProxyCheckoApi
         $response = $this->checkoClient->get($resource, $parameters);
         [, $dtoClass] = self::RESOURCE_METHODS[$resource];
 
-        return $this->makeDto($dtoClass, $response);
+        return $this->responseMapper->map($dtoClass, $response);
     }
 
     private function castQueryParameter(mixed $value, \ReflectionParameter $parameter): mixed
@@ -483,78 +485,4 @@ class ProxyCheckoApi
         };
     }
 
-    private function makeDto(string $dtoClass, stdClass $data): object
-    {
-        $dto = new $dtoClass();
-
-        foreach (get_object_vars($data) as $name => $value) {
-            if (!property_exists($dto, $name)) {
-                continue;
-            }
-
-            $propertyType = (new ReflectionProperty($dto, $name))->getType();
-            if (!$propertyType instanceof ReflectionNamedType) {
-                throw new RuntimeException(sprintf('Неподдерживаемый тип свойства DTO для %s', $name));
-            }
-
-            if ($value === null && !$propertyType->allowsNull()) {
-                continue;
-            }
-
-            $dto->{$name} = $this->makeValue($value, $propertyType);
-        }
-
-        return $dto;
-    }
-
-    private function makeValue(mixed $value, ReflectionNamedType $type): mixed
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        $typeName = $type->getName();
-        if ($typeName === 'array') {
-            if (!is_array($value) && !$value instanceof stdClass) {
-                throw new RuntimeException('Checko API вернул значение, которое не соответствует типу массива DTO');
-            }
-
-            return $this->toArray($value);
-        }
-
-        if (!$type->isBuiltin()) {
-            if (!$value instanceof stdClass) {
-                throw new RuntimeException('Checko API вернул значение, которое не соответствует типу вложенного DTO');
-            }
-
-            return $this->makeDto($typeName, $value);
-        }
-
-        if ($typeName === 'string' && is_scalar($value)) {
-            return (string) $value;
-        }
-        if ($typeName === 'int' && (is_int($value) || (is_string($value) && preg_match('/^-?\d+$/', $value)))) {
-            return (int) $value;
-        }
-        if ($typeName === 'float' && is_numeric($value)) {
-            return (float) $value;
-        }
-        if ($typeName === 'bool' && is_bool($value)) {
-            return $value;
-        }
-
-        throw new RuntimeException(sprintf('Checko API вернул значение, которое не соответствует типу DTO %s', $typeName));
-    }
-
-    private function toArray(array|stdClass $value): array
-    {
-        $array = $value instanceof stdClass ? get_object_vars($value) : $value;
-        foreach ($array as $key => $item) {
-            if ($item instanceof stdClass || is_array($item)) {
-                $array[$key] = $this->toArray($item);
-            }
-        }
-
-        return $array;
-    }
 }

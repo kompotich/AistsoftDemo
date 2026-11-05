@@ -6,6 +6,10 @@ require_once dirname(__DIR__) . '/src/autoload.php';
 
 $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $documentationFiles = [
+    '/' => ['index.html', 'text/html; charset=utf-8'],
+    '/index.html' => ['index.html', 'text/html; charset=utf-8'],
+    '/styles.css' => ['styles.css', 'text/css; charset=utf-8'],
+    '/app.js' => ['app.js', 'text/javascript; charset=utf-8'],
     '/swagger' => ['swagger.html', 'text/html; charset=utf-8'],
     '/swagger/' => ['swagger.html', 'text/html; charset=utf-8'],
     '/swagger.html' => ['swagger.html', 'text/html; charset=utf-8'],

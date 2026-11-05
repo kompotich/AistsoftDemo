@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Поиск компании — AistsoftDemo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+    <h1>Поиск компании или ИП</h1>
+    <p>Найдите запись по имени, откройте полные сведения и при необходимости сохраните их в базу.</p>
+
+    <section class="card" aria-labelledby="search-title">
+        <h2 id="search-title">1. Поиск по имени</h2>
+        <form id="search-form">
+            <label>
+                Название компании или ФИО ИП
+                <input id="search-query" name="query" type="search" minlength="4" required
+                       placeholder="Введите название или ФИО">
+            </label>
+            <label>
+                Искать среди
+                <select id="search-type" name="obj">
+                    <option value="org">Компаний</option>
+                    <option value="ent">ИП</option>
+                </select>
+            </label>
+            <button type="submit">Найти</button>
+        </form>
+        <p class="hint">Для поиска по названию или ФИО нужно не менее 4 символов.</p>
+        <p id="search-message" class="message" role="status" aria-live="polite"></p>
+        <div id="search-results" class="results" aria-label="Результаты поиска"></div>
+    </section>
+
+    <section class="card" aria-labelledby="details-title">
+        <h2 id="details-title">2. Полные сведения</h2>
+        <form id="details-form">
+            <label>
+                Тип записи
+                <select id="details-type">
+                    <option value="company">Компания</option>
+                    <option value="entrepreneur">ИП</option>
+                </select>
+            </label>
+            <label>
+                Искать по
+                <select id="details-id-type">
+                    <option value="inn">ИНН</option>
+                    <option value="ogrn">ОГРН / ОГРНИП</option>
+                </select>
+            </label>
+            <label>
+                ИНН или ОГРН
+                <input id="details-id" type="text" inputmode="numeric" required
+                       placeholder="Введите ИНН или ОГРН">
+            </label>
+            <button type="submit">Получить сведения</button>
+        </form>
+        <p id="details-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="record-card" class="card" aria-labelledby="record-title" hidden>
+        <div class="detail-header">
+            <h2 id="record-title">Сведения</h2>
+            <button id="save-button" type="button">Сохранить в базу</button>
+        </div>
+        <p id="save-message" class="message" role="status" aria-live="polite"></p>
+        <pre id="record-json"></pre>
+    </section>
+</main>
+
+<script src="app.js" defer></script>
+</body>
+</html>
